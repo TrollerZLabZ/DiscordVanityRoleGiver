@@ -1,0 +1,22 @@
+{
+  "name": "vanityrolegiver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "@ALEXA#0114",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TrollerZLabZ/DiscordVanityRoleGiver"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.25.2",
+    "discord.js": "^12.0.0",
+    "dotenv": "^10.0.0"
+  }
+}
