@@ -21,6 +21,7 @@ client.on("ready", async () => {
     console.log("Bot is ready!");
     console.log(`${client.user.tag} || ${client.user.id}`);
     console.log(`${client.guilds.cache.size} guilds`);
+    console.log(`This bot was made by @ALEXA#0114. Make sure to give me credit! <3`)
     /**
      * @type {Discord.Guild} 
      */
