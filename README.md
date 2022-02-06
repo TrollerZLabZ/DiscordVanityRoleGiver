@@ -7,3 +7,4 @@ A bot that checks a server's members automatically and gives them a role based o
 * Start your bot with node .
 
 # Made by ALEXA#0114 / TrollerZLabZ <3
+###### Make sure to give me credit while using this bot!
