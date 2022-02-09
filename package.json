@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/TrollerZLabZ/DiscordVanityRoleGiver"
   },
-  "license": "ISC",
+  "license": "GNU",
   "dependencies": {
     "discord.js": "^13.6.0",
     "dotenv": "^10.0.0"
