@@ -35,9 +35,6 @@ client.on("ready", async () => {
 client.on("presenceUpdate", async (oldPresence, newPresence) => {
     const newMember = newPresence.member;
     if (newMember.guild.id !== config.guildId) return;
-    for(i in newMember.presence.activities) {
-        console.log(newMember.presence.activities[i]);
-    }
     if (newMember.roles.cache.find(role => role.id === config.roleId)){
         console.log("hi")
         if(newMember.presence.activities.some(activity => activity.type === "CUSTOM" && activing.state && activity.state.includes(config.phrase))) return;
