@@ -5,15 +5,15 @@
 //Declares Discord
 
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.Client({
+    intents: [
+        'GUILDS',
+        'GUILD_MEMBERS',
+        'GUILD_MESSAGES',
+        'GUILD_PRESENCES'
+    ]
+});
 const config = require('./config.js');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-
-const rest = new REST({ version: '9' })
-    .setToken('token');
-
-rest.get(Routes.invite());
 //Initializes the environment variables
 require('dotenv').config()
 
@@ -32,22 +32,24 @@ client.on("ready", async () => {
 
 //single phrase
 
-client.on("guildMemberUpdate", async (oldMember, newMember) => {
+client.on("presenceUpdate", async (oldPresence, newPresence) => {
+    const newMember = newPresence.member;
     if (newMember.guild.id !== config.guildId) return;
+    for(i in newMember.presence.activities) {
+        console.log(newMember.presence.activities[i]);
+    }
     if (newMember.roles.cache.find(role => role.id === config.roleId)){
-        if(newMember.user.presence.activities.some(activity => activity.state.includes(config.phrase) && activity.type === "CUSTOM_STATUS")) return;
-        if(!newMember.user.presence.activities.some(activity => activity.state.includes(config.phrase) && activity.type === "CUSTOM_STATUS")){
-            newMember.roles.remove(config.roleId)
+        console.log("hi")
+        if(newMember.presence.activities.some(activity => activity.type === "CUSTOM" && activing.state && activity.state.includes(config.phrase))) return;
+        if(!newMember.presence.activities.some(activity => activity.type === "CUSTOM" && activity.state && activity.state.includes(config.phrase))){
+            const role = newMember.guild.roles.cache.get(config.roleId);
+            await newMember.roles.remove(role);
             console.log("I removed the role from " + newMember.user.tag)
         }
     }
-    // if (newMember.roles.cache.find(role => role.id === config.roleId) && newMember.user.presence.activities.some(activity => activity.state.includes(config.phrase) && activity.type === "CUSTOM_STATUS")) return;
-    // if (newMember.roles.cache.find(role => role.id === config.roleId) && !newMember.user.presence.activities.some(activity => activity.state.includes(config.phrase) && activity.type === "CUSTOM_STATUS")) {
-    //     newMember.roles.remove(config.roleId);
-    //     console.log("I removed the role from " + newMember.user.tag);
-    // }
-    if (!newMember.roles.cache.find(role => role.id === config.roleId) && newMember.user.presence.activities.some(activity => activity.state.includes(config.phrase) && activity.type === "CUSTOM_STATUS")) {
-        newMember.roles.add(config.roleId);
+    if (!newMember.roles.cache.find(role => role.id === config.roleId) && newMember.presence.activities.some(activity => activity.type === "CUSTOM" && activity.state && activity.state.includes(config.phrase) )) {
+        console.log("hi");
+        await newMember.roles.add(config.roleId);
         console.log("added")
         console.log("I added the role to " + newMember.user.tag)
     }
