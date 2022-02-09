@@ -1,3 +1,5 @@
+# I've Decided To Not Release The Guild Invite Checker, as I have worked on it for too much time for it to be worth it. However, I will continue to update this version.
+<hr>
 # DiscordVanityRoleGiver
 A bot that checks a server's members automatically and gives them a role based on their custom status.
 
