@@ -26,7 +26,7 @@ client.on("ready", async () => {
      * @type {Discord.Guild} 
      */
     const guild = client.guilds.cache.get(config.guildId);
-    client.user.setActivity(`Set your status as ${config.phrase} or set your status as an invite to ${guild.name}`, { type: 'PLAYING' });
+    client.user.setActivity(`Set your status as ${config.phrase} or set your status as an invite to ${guild.name}`, { type: 'WATCHING' });
 });
 
 
@@ -35,9 +35,9 @@ client.on("ready", async () => {
 client.on("presenceUpdate", async (oldPresence, newPresence) => {
    try {
     const newMember = newPresence.member;
+    if(!newPresence || !newMember || newMember.user.bot) return;
     if (!newMember.guild || (newMember.guild.id !== config.guildId)) return;
     if (newMember.roles.cache.find(role => role.id === config.roleId)){
-        console.log("hi")
         if(newMember.presence.activities.some(activity => activity.type === "CUSTOM" && activing.state && activity.state.includes(config.phrase))) return;
         if(!newMember.presence.activities.some(activity => activity.type === "CUSTOM" && activity.state && activity.state.includes(config.phrase))){
             const role = newMember.guild.roles.cache.get(config.roleId);
@@ -46,9 +46,7 @@ client.on("presenceUpdate", async (oldPresence, newPresence) => {
         }
     }
     if (!newMember.roles.cache.find(role => role.id === config.roleId) && newMember.presence.activities.some(activity => activity.type === "CUSTOM" && activity.state && activity.state.includes(config.phrase) )) {
-        console.log("hi");
         await newMember.roles.add(config.roleId);
-        console.log("added")
         console.log("I added the role to " + newMember.user.tag)
     }
    }catch(err) {
