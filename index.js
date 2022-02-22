@@ -33,8 +33,9 @@ client.on("ready", async () => {
 //single phrase
 
 client.on("presenceUpdate", async (oldPresence, newPresence) => {
+   try {
     const newMember = newPresence.member;
-    if (newMember.guild.id !== config.guildId) return;
+    if (!newMember.guild || (newMember.guild.id !== config.guildId)) return;
     if (newMember.roles.cache.find(role => role.id === config.roleId)){
         console.log("hi")
         if(newMember.presence.activities.some(activity => activity.type === "CUSTOM" && activing.state && activity.state.includes(config.phrase))) return;
@@ -50,6 +51,9 @@ client.on("presenceUpdate", async (oldPresence, newPresence) => {
         console.log("added")
         console.log("I added the role to " + newMember.user.tag)
     }
+   }catch(err) {
+      console.log(err);
+   }
 });
 
 //match invite's server
